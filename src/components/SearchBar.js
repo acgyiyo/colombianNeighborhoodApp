@@ -2,27 +2,19 @@ import React from 'react';
 import cityImg from '../resources/images/city.PNG';
 import neighboImg from '../resources/images/neighborhood.PNG';
 
-function SearchBar() {
+const inputValue = "";
+function SearchBar(props) {
   return <div className="row">
     <div className="col s6">
-      <SearchCard text="Aca puedes buscar ciudades por el nombre" label="Ciudad" type="0" img={cityImg} />
+      <SearchCard text="Aca puedes buscar ciudades por el nombre" label="Ciudad" type="0" img={cityImg} searchLocation={props.searchLocation} />
     </div>
     <div className="col s6">
-      <SearchCard text="Aca puedes buscar Barrios por su nombre" label="Barrio" type="1" img={neighboImg} />
+      <SearchCard text="Aca puedes buscar Barrios por su nombre" label="Barrio" type="1" img={neighboImg} searchLocation={props.searchLocation} />
     </div>
   </div>
 }
 
-function searchLocation(e, type) {
-  e.preventDefault();
-  if (type === "0") {
-    console.log("citys");
-  } else {
-    console.log("barrios");
-  }
-};
-
-function SearchCard({ text, label, type, img }) {
+function SearchCard({ text, label, type, img, searchLocation }) {
   return <div className="card horizontal">
     <div className="card-image">
       <img className="width200" src={img} alt="img here" />
@@ -32,17 +24,22 @@ function SearchCard({ text, label, type, img }) {
         <p>{text}</p>
         <form>
           <div className="input-field col s12">
-            <input id="last_name" type="text" className="validate" />
-            <label htmlFor="last_name">{label}</label>
+            <input id={"id" + label} type="text" className="validate" onChange={(e) => changeValue(e)} />
+            <label htmlFor={"id" + label}>{label}</label>
           </div>
           <div className="col s12 center">
-            <button className="btn waves-effect waves-light" onClick={(e) => searchLocation(e, type)}
+            <button className="btn waves-effect waves-light blue" onClick={(e) => searchLocation(e, type,inputValue)}
               type="submit" name="search">Buscar</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+}
+
+function changeValue(e) {
+  console.log(e.target.value);
+  inputValue = e.target.value;
 }
 
 export default SearchBar;
