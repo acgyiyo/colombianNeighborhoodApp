@@ -2,7 +2,7 @@ import React from 'react';
 import cityImg from '../resources/images/city.PNG';
 import neighboImg from '../resources/images/neighborhood.PNG';
 
-const inputValue = "";
+let inputValue = "";
 function SearchBar(props) {
   return <div className="row">
     <div className="col s6">
@@ -28,7 +28,7 @@ function SearchCard({ text, label, type, img, searchLocation }) {
             <label htmlFor={"id" + label}>{label}</label>
           </div>
           <div className="col s12 center">
-            <button className="btn waves-effect waves-light blue" onClick={(e) => searchLocation(e, type,inputValue)}
+            <button className="btn waves-effect waves-light blue" onClick={(e) => searchLocation(e, type, inputValue)}
               type="submit" name="search">Buscar</button>
           </div>
         </form>
@@ -38,7 +38,6 @@ function SearchCard({ text, label, type, img, searchLocation }) {
 }
 
 function changeValue(e) {
-  console.log(e.target.value);
   inputValue = e.target.value;
 }
 

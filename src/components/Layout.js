@@ -1,42 +1,47 @@
 import React from 'react'
 
-import Banner from './Nav';
+import Nav from './Nav';
 import City from './City';
 import Neighborhood from './Neighborhood';
 import SearchBar from './SearchBar';
 
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-// import { browserHistory } from 'react-router';
-// import historyy from "../util/history";
-// import { withRouter } from "react-router-dom";
-
+let componentToShow = '';
 class Layout extends React.Component {
-
-  cityName = null;
 
   constructor(props) {
     super(props);
+    this.state = {
+      cityName: null,
+      type: ''
+    }
   }
 
   searchLocation = (e, type, value) => {
     e.preventDefault();
     if (type === "0") {
-      console.log("eeeeeeeeeeeeeeee",value);
-      this.cityName = value;
-      this.props.history.push("/cities");
+      componentToShow = '';
+      this.setState({ cityName: value, type: 'city' })
     } else {
-      this.props.history.push("/neighborhoods");
+      this.setState({ neighborhoodName: value, type: 'neighborhood' })
     }
   };
 
   render() {
+    if (this.state.type === 'city') {
+      componentToShow = <City cityName={this.state.cityName} />
+    }
+    if (this.state.type === 'neighborhood') {
+      componentToShow = <Neighborhood name={this.state.neighborhoodName} />
+    }
+
     return <div id="wrapper">
       <div id="page-content-wrapper">
-        <Banner />
+        <Nav />
         <div className="container-fluid">
           <SearchBar searchLocation={this.searchLocation} />
           <div className="row">
-            <Route path="/cities" render={() => <City cityName={this.cityName} />} />
+            {console.log("ciudad->", this.state.cityName)}
+            {componentToShow}
           </div>
         </div>
       </div>

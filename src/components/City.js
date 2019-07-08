@@ -1,17 +1,37 @@
 import React from 'react';
 import { findCityByName } from '../api/cities';
+import CityCard from './CityCard';
 
 class City extends React.Component {
 
-  state = {
-    cities: []
+  fetched = false;
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      cities: []
+    }
   }
 
   componentDidMount() {
+    this.fetched = true;
     findCityByName(this.props).then(({ data }) => {
-      console.log("cities->", data);
       this.setState({ cities: data });
     });
+  }
+
+  componentWillUnmount() {
+    console.log("desmonte ciudad");
+  }
+
+  componentDidUpdate() {
+    if (!this.fetched) {
+      console.log("UPDATED-CITY");
+      findCityByName(this.props).then(({ data }) => {
+        this.setState({ cities: data });
+      });
+    }
+    this.fetched = false;
   }
 
   render() {
@@ -19,32 +39,15 @@ class City extends React.Component {
     return <React.Fragment>
       {
         cities.map((city) => {
-          return <CityCard key={city.id} city={city} />
+          if (typeof city !== 'object')
+            return '';
+          return <div key={city.id} className="col s6">
+            <CityCard key={city.id} city={city} />
+          </div>
         })
       }
     </React.Fragment>
   }
-}
-
-function CityCard(props) {
-  const city = props.city;
-  const neighborhoods = city.neighborhoodList;
-  return <div>
-    <span>Ciudad: {city.name}</span> <br />
-    <span>Departamento: {city.department.name}</span> <br />
-    Barrios:
-    <ul>
-      {
-        neighborhoods.map((nei) => 
-          <NeighborhoodCard key={nei.id} nei={nei} />
-        )}
-      <li></li>
-    </ul>
-  </div>
-}
-
-function NeighborhoodCard({nei}) {
-  return <li>{nei.name}</li>
 }
 
 export default City;
