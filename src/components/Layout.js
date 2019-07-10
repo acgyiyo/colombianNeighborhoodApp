@@ -2,7 +2,7 @@ import React from 'react'
 
 import Nav from './Nav';
 import City from './City';
-import Neighborhood from './Neighborhood';
+import NeighborhoodHook from './Neighborhood';
 import SearchBar from './SearchBar';
 
 let componentToShow = '';
@@ -31,7 +31,7 @@ class Layout extends React.Component {
       componentToShow = <City cityName={this.state.cityName} />
     }
     if (this.state.type === 'neighborhood') {
-      componentToShow = <Neighborhood name={this.state.neighborhoodName} />
+      componentToShow = <NeighborhoodHook name={this.state.neighborhoodName} />
     }
 
     return <div id="wrapper">

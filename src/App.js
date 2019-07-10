@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
-import { createStore } from 'redux';
+// import { createStore } from 'redux';
 
 //components
 import Layout from './components/Layout';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-const rootReducer = () => {
+// const rootReducer = () => {
 
-};
-const store =createStore(rootReducer,{});
+// };
+// const store = createStore(rootReducer, {});
 class App extends React.Component {
 
   render() {

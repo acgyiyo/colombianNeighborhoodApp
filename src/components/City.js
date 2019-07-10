@@ -20,10 +20,6 @@ class City extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    console.log("desmonte ciudad");
-  }
-
   componentDidUpdate() {
     if (!this.fetched) {
       console.log("UPDATED-CITY");

@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { findNeighborhoodByName } from '../api/neighborhoods'
 
-class Neighborhood extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+function NeighborhoodHook(props) {
+    const [neighborhoods, setNeighborhood] = useState([]);
 
-    componentDidMount() {
-        findNeighborhoodByName(this.props).then((data) => {
-            console.log(data);
+    useEffect(() => {
+        console.log(neighborhoods);
+
+        findNeighborhoodByName(props).then((data) => {
+            setNeighborhood(data);
         });
-    }
+    }, [props.name]);
 
-    render() {
-        return <div>Hellloo barrios</div>
-    }
+    return <div>
+        {
+            neighborhoods.map((n => {
+                return <React.Fragment key={n.id}>
+                    <div>Barrio: {n.name}</div><br />
+                    <div>Ciudad: {n.city.name}</div>
+                </React.Fragment>
+            }))
+        }
+    </div>
 }
 
-export default Neighborhood;
+export default NeighborhoodHook;

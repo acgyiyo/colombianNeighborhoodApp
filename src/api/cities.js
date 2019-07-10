@@ -9,7 +9,7 @@ const massageImg = ({ data }) => {
 }
 
 export const findCityByName = (props) =>
-  axios.get(`http://192.168.1.56:6060/cities/${props.cityName}`);
+  axios.get(`http://localhost:6060/cities/${props.cityName}`);
 
 export const findCityInfo = (props) =>
   axios.get(`https://es.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json&origin=*&srsearch=${props.name}`);
